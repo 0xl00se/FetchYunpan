@@ -33,13 +33,13 @@ def search_movie(keyword):
     try:
         result_pansou = fetch_pansou(query_key)
         if result_pansou:
-            print u"你所搜索的%s的结果如下：" % keyword
+            print "你所搜索的%s的结果如下：" % keyword
             for list in range(len(result_pansou)):
-                print u"#%s   url:%s" % (list, result_pansou[list])
+                print "#%s   url:%s" % (list, result_pansou[list])
         else:
-            print u"请输入正确的关键词！"
+            print "请输入正确的关键词！"
     except:
         pass
 if __name__ == "__main__":
-    keyword = raw_input(u"请输入您要查询资源的关键词：").encode('utf-8')
+    keyword = raw_input("请输入您要查询资源的关键词：").decode('utf-8').encode('utf-8')
     search_movie(keyword);
