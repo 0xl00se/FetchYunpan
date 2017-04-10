@@ -29,7 +29,6 @@ def fetch_pansou(query_key):
 def search_movie(keyword):
     
     query_key = keyword
-    result_list = []
     try:
         result_pansou = fetch_pansou(query_key)
         if result_pansou:
