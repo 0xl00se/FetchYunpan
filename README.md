@@ -1,2 +1,3 @@
 # FetchYunpan
-通过一些云盘的API获取资源而编写的小工具，思路以及部分代码来自phithon。
+require：requests, bs4, lxml
+获取云盘资源的链接的小工具，思路借鉴于phithon。
