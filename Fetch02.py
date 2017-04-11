@@ -26,34 +26,42 @@ def search_sobaidupan(query_key):
         }
     for i in range(10)： #页面的数目，1-100
         data['page'] = i
-        rsearch = BeautifulSoup(requests.post(url=search_url, headers=headers, data=data).content, 'lxml')
-        items_search = rsearch.find_all('a', target='_blank', href=re.compile("file"))
-        if rsearch and items_search:
-            for item in set(items_search):
-                url_sobaidupan(base_url + item['href'])
-        else:
+        try:
+            rsearch = BeautifulSoup(requests.post(url=search_url, headers=headers, data=data).content, 'lxml')
+            items_search = rsearch.find_all('a', target='_blank', href=re.compile("file"))
+            if rsearch and items_search:
+                for item in set(items_search):
+                    url_sobaidupan(base_url + item['href'])
+            else:
+                pass
+        except:
             pass
     
 def url_sobaidupan(url):
     
-    rurl = BeautifulSoup(requests.get(url=url, headers=headers).content, 'lxml')
-    items_url = rurl.find_all('a', target='_blank', href=re.compile("down.asp"))
-    if rurl and items_url:
-        for item in set(items_url):
-            return parse_sobaidupan(item['href'])
-    else:
-        return None
+    try:
+        rurl = BeautifulSoup(requests.get(url=url, headers=headers).content, 'lxml')
+        items_url = rurl.find_all('a', target='_blank', href=re.compile("down.asp"))
+        if rurl and items_url:
+            for item in set(items_url):
+                return parse_sobaidupan(item['href'])
+        else:
+            return None
+    except:
+        pass
 
 def parse_sobaidupan(url):
     
-    purl = BeautifulSoup(requests.get(url=url, headers=headers).content, 'lxml')
-    item_parse = purl.find_all('meta', content=re.compile("pan.baidu.com"))
-    if purl and item_parse:
-        for item in set(item_parse):
-            print "#url:%s" % item['content'][6:]
-    else:
-        return None
-    
+    try:
+        purl = BeautifulSoup(requests.get(url=url, headers=headers).content, 'lxml')
+        item_parse = purl.find_all('meta', content=re.compile("pan.baidu.com"))
+        if purl and item_parse:
+            for item in set(item_parse):
+                print "#url:%s" % item['content'][6:]
+        else:
+            return None
+    except:
+        pass
 
 if __name__ == "__main__":
     keyword = raw_input("请输入您要查询资源的关键词：").decode('utf-8').encode('utf-8')
