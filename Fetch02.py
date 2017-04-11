@@ -28,13 +28,9 @@ def search_sobaidupan(query_key):
         data['page'] = i
         rsearch = BeautifulSoup(requests.post(url=search_url, headers=headers, data=data).content, 'lxml')
         items_search = rsearch.find_all('a', target='_blank', href=re.compile("file"))
-        href_list1 = []
-        if items_search:
+        if rsearch and items_search:
             for item in set(items_search):
-                href_list1.append(base_url + item['href'])
-            result = []
-            for iurl in href_list1:
-                result.append(url_sobaidupan(iurl))
+                url_sobaidupan(base_url + item['href'])
         else:
             pass
     
@@ -42,10 +38,9 @@ def url_sobaidupan(url):
     
     rurl = BeautifulSoup(requests.get(url=url, headers=headers).content, 'lxml')
     items_url = rurl.find_all('a', target='_blank', href=re.compile("down.asp"))
-    if items_url:
+    if rurl and items_url:
         for item in set(items_url):
-            href_list2 = item['href']
-        return parse_sobaidupan(href_list2)
+            return parse_sobaidupan(item['href'])
     else:
         return None
 
@@ -53,15 +48,14 @@ def parse_sobaidupan(url):
     
     purl = BeautifulSoup(requests.get(url=url, headers=headers).content, 'lxml')
     item_parse = purl.find_all('meta', content=re.compile("pan.baidu.com"))
-    if item_parse:
+    if purl and item_parse:
         for item in set(item_parse):
-            href_list3 = item['content']
-        print "#url:%s" % href_list3[6:]
+            print "#url:%s" % item['content'][6:]
     else:
         return None
     
 
 if __name__ == "__main__":
     keyword = raw_input("请输入您要查询资源的关键词：").decode('utf-8').encode('utf-8')
-    print "你所搜索的%s的结果如下：" % keyword
-    search_sobaidupan("keyword")
+    print "你所搜索的{%s}的结果如下：" % keyword
+    search_sobaidupan(keyword)
