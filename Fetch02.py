@@ -11,7 +11,6 @@ from bs4 import BeautifulSoup
 import re
 
 headers = {
-    'X-Requested-With' : 'XMLHttpRequest',
     'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2'
     }
 
