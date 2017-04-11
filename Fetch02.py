@@ -24,7 +24,7 @@ def search_sobaidupan(query_key):
         'p': 0,
         'page': 0,
         }
-    for i in range(10)： #页面的数目，1-100
+    for i in range(10): #页面的数目，1-100
         data['page'] = i
         try:
             rsearch = BeautifulSoup(requests.post(url=search_url, headers=headers, data=data).content, 'lxml')
